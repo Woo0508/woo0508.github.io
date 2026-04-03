@@ -1,61 +1,93 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-image: url('images/lower_qual_back_frut.jfif');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   min-height: 100vh;
   color: rgb(0, 25, 252);
   
-  /* Default for mobile phones - full width */
-  background-size: cover;
-  
-  /* This color shows on the sides on large screens */
-  background-color: #1a1a1a;  /* Matches your .project background */
+  /* Side panel color */
+  background-color: #B2D7B9;
+}
+
+/* Background wrapper for the image with side panels */
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #B2D7B9;  /* Side panel color */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.background-image {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+/* Default for mobile phones - full width image */
+.background-image {
+  max-width: 100%;
 }
 
 /* For tablets and small desktops (768px and up) */
 @media screen and (min-width: 768px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
-    background-size: 80% auto;  /* Image is 80% of screen width */
+  .background-image {
+    max-width: 85%;  /* Image is 85% of screen width */
   }
 }
 
 /* For laptops/desktops (1200px and up) */
 @media screen and (min-width: 1200px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
-    background-size: 60% auto;  /* Image is 60% of screen width */
+  .background-image {
+    max-width: 75%;  /* Image is 75% of screen width */
   }
 }
 
 /* For large desktops (1600px and up) */
 @media screen and (min-width: 1600px) {
-  body {
-    background-size: 50% auto;  /* Image is 50% of screen width */
+  .background-image {
+    max-width: 65%;  /* Image is 65% of screen width */
   }
 }
 
 /* For ultra-wide screens (1920px and up) */
 @media screen and (min-width: 1920px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
-    background-size: 40% auto;  /* Image is 40% of screen width - half-screen look */
+  .background-image {
+    max-width: 55%;  /* Image is 55% of screen width */
   }
 }
 
 /* For extremely wide screens (2560px and up) */
 @media screen and (min-width: 2560px) {
-  body {
-    background-size: 30% auto;  /* Even thinner on massive displays */
+  .background-image {
+    max-width: 45%;  /* Image is 45% of screen width */
   }
+}
+
+/* Content wrapper - keeps content above background */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 header {
   text-align: center;
   padding: 60px 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
 section {
@@ -64,9 +96,88 @@ section {
   margin: auto;
 }
 
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(0, 25, 252, 0.3);
+  display: inline-block;
+}
+
 .project {
-  background: #1a1a1a;
+  /* background: #1a1a1a; (commented out as in your original) */
   padding: 15px;
   margin: 10px 0;
   border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+  transform: translateX(10px);
+  /* Optional: add a subtle shadow on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Music control button styling */
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.music-control:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* Optional: fade-in animation for the button */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.music-control {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+  header {
+    padding: 40px 20px;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  section {
+    padding: 30px 20px;
+  }
+  
+  section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .music-control {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }

@@ -10,39 +10,54 @@
 </head>
 <body>
 
-  <header>
-    
-  </header>
+  <!-- Background wrapper for side panels -->
+  <div class="background-wrapper">
+    <img class="background-image" src="images/lower_qual_back_frut.jfif" alt="Background">
+  </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>about...</p>
-  </section>
+  <!-- Main content wrapper -->
+  <div class="content-wrapper">
+    <header>
+      <h1>Welcome to My Portfolio</h1>
+      <p>Creative Developer & Designer</p>
+    </header>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">Project 1</div>
-    <div class="project">Project 2</div>
-  </section>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>about...</p>
+    </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email or linkedin</p>
-  </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project">Project 1</div>
+      <div class="project">Project 2</div>
+    </section>
 
-  <!-- looping background music -->
-<audio autoplay loop>
-  <source src="background-music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email or linkedin</p>
+    </section>
+  </div>
+
+  <!-- Entrance sound -->
+  <audio id="entranceSound" preload="auto">
+    <source src="sounds\frutiger-aero-sound.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Looping background music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music\takeshi abo - LEASE (extended).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Music control button -->
+  <button id="musicControl" class="music-control" style="display: none;">
+    🔇 Music Off
+  </button>
+
+  <!-- Link to external JavaScript file -->
+  <script src="script.js"></script>
 
 </body>
 </html>
-
-
-<!--  used to embed another document within the current HTML document
-<iframe src="demo_iframe.htm" name="iframe_a" title="Iframe Example"></iframe>
-
-<p><a href="https://www.w3schools.com" target="iframe_a">W3Schools.com</a></p>
-  -->
-
