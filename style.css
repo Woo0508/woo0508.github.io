@@ -2,28 +2,39 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-image: url('images/lower_qual_back_frut.jfif');
-    /* Default for mobile phones */
-  background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
-
-  color: white;
+  color: rgb(0, 25, 252);
+  
+  /* Default for mobile phones - full width */
+  background-size: cover;
+  
+  /* This color shows on the sides on large screens */
+  background-color: #1a1a1a;  /* Matches your .project background */
 }
-
 
 /* For tablets and small desktops (768px and up) */
 @media screen and (min-width: 768px) {
   body {
     background-image: url('images/lower_qual_back_frut.jfif');
+    background-size: 80% auto;  /* Image is 80% of screen width */
   }
 }
 
-/* For large desktops (1200px and up) */
+/* For laptops/desktops (1200px and up) */
 @media screen and (min-width: 1200px) {
   body {
     background-image: url('images/lower_qual_back_frut.jfif');
+    background-size: 60% auto;  /* Image is 60% of screen width */
+  }
+}
+
+/* For large desktops (1600px and up) */
+@media screen and (min-width: 1600px) {
+  body {
+    background-size: 50% auto;  /* Image is 50% of screen width */
   }
 }
 
@@ -31,6 +42,14 @@ body {
 @media screen and (min-width: 1920px) {
   body {
     background-image: url('images/lower_qual_back_frut.jfif');
+    background-size: 40% auto;  /* Image is 40% of screen width - half-screen look */
+  }
+}
+
+/* For extremely wide screens (2560px and up) */
+@media screen and (min-width: 2560px) {
+  body {
+    background-size: 30% auto;  /* Even thinner on massive displays */
   }
 }
 

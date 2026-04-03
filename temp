@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('images/lower_qual_back_frut.jfif');
+    /* Default for mobile phones */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+
+  color: rgb(0, 25, 252);
+}
+
+
+/* For tablets and small desktops (768px and up) */
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
+}
+
+/* For large desktops (1200px and up) */
+@media screen and (min-width: 1200px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
+}
+
+/* For ultra-wide screens (1920px and up) */
+@media screen and (min-width: 1920px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.project {
+  background: #1a1a1a;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
