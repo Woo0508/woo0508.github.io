@@ -1,3 +1,170 @@
+/* ==================== */
+/* ENTRANCE OVERLAY STYLES */
+/* ==================== */
+
+.entry-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  overflow: hidden;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.entry-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.entry-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8); /* Slightly dim the background for better button visibility */
+}
+
+.entry-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+}
+
+/* ==================== */
+/* WII-STYLE BUTTON */
+/* ==================== */
+
+.wii-button {
+  position: relative;
+  background: linear-gradient(135deg, #e8e8e8 0%, #cccccc 100%);
+  border: none;
+  border-radius: 60px;
+  padding: 18px 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 0 #8a8a8a, 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.button-text {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-shadow: 0 1px 0 #ffffff;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+/* Hover effects */
+.wii-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 #8a8a8a, 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.wii-button:hover .button-glow {
+  left: 100%;
+}
+
+.wii-button:hover .button-text {
+  color: #2c2c2c;
+  transform: scale(1.02);
+}
+
+/* Active/Click effect */
+.wii-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 4px 0 #8a8a8a, 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== */
+/* AUDIO WARNING */
+/* ==================== */
+
+.audio-warning {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border-left: 4px solid #ff4444;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 400px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.warning-icon {
+  font-size: 32px;
+  animation: pulse 1.5s infinite;
+}
+
+.audio-warning p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* ==================== */
+/* MAIN CONTENT (Initially Hidden) */
+/* ==================== */
+
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.main-content.visible {
+  opacity: 1;
+}
+
+
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -16,56 +183,64 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-color: #B2D7B9;  /* Side panel color */
+  background-color: #B2D7B9;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden; /* Prevents scrollbars if image extends */
 }
 
 .background-image {
   width: auto;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover; /* Changed from 'contain' to 'cover' for wider coverage */
   object-position: center top;
+  min-width: 100%; /* Ensures image covers the width */
 }
 
 /* Default for mobile phones - full width image */
 .background-image {
-  max-width: 100%;
+  max-width: none; /* Removed max-width limitation */
+  width: 100%; /* Make it fill the wrapper */
 }
 
 /* For tablets and small desktops (768px and up) */
 @media screen and (min-width: 768px) {
   .background-image {
-    max-width: 85%;  /* Image is 85% of screen width */
+    width: 110%; /* 5% wider on each side = 10% total wider */
+    margin-left: -5%; /* Centers the wider image */
   }
 }
 
 /* For laptops/desktops (1200px and up) */
 @media screen and (min-width: 1200px) {
   .background-image {
-    max-width: 75%;  /* Image is 75% of screen width */
+    width: 115%; /* 7.5% wider on each side = 15% total wider */
+    margin-left: -7.5%;
   }
 }
 
 /* For large desktops (1600px and up) */
 @media screen and (min-width: 1600px) {
   .background-image {
-    max-width: 65%;  /* Image is 65% of screen width */
+    width: 120%; /* 10% wider on each side = 20% total wider */
+    margin-left: -10%;
   }
 }
 
 /* For ultra-wide screens (1920px and up) */
 @media screen and (min-width: 1920px) {
   .background-image {
-    max-width: 55%;  /* Image is 55% of screen width */
+    width: 125%; /* 12.5% wider on each side = 25% total wider */
+    margin-left: -12.5%;
   }
 }
 
 /* For extremely wide screens (2560px and up) */
 @media screen and (min-width: 2560px) {
   .background-image {
-    max-width: 45%;  /* Image is 45% of screen width */
+    width: 130%; /* 15% wider on each side = 30% total wider */
+    margin-left: -15%;
   }
 }
 
@@ -104,7 +279,6 @@ section h2 {
 }
 
 .project {
-  /* background: #1a1a1a; (commented out as in your original) */
   padding: 15px;
   margin: 10px 0;
   border-radius: 8px;
@@ -113,7 +287,6 @@ section h2 {
 
 .project:hover {
   transform: translateX(10px);
-  /* Optional: add a subtle shadow on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -181,3 +354,6 @@ section h2 {
     font-size: 12px;
   }
 }
+
+
+

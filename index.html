@@ -10,54 +10,74 @@
 </head>
 <body>
 
-  <!-- Background wrapper for side panels -->
-  <div class="background-wrapper">
-    <img class="background-image" src="images/lower_qual_back_frut.jfif" alt="Background">
+  <!-- ENTRANCE OVERLAY -->
+  <div id="entryOverlay" class="entry-overlay">
+    <div class="entry-background">
+      <img src="images/entrance_picture.jpg" alt="Background" class="entry-bg-image">
+    </div>
+    <div class="entry-content">
+      <!-- Wii-style button -->
+      <button id="enterButton" class="wii-button">
+        <span class="button-text">Enter</span>
+        <span class="button-glow"></span>
+      </button>
+      
+      <!-- Audio warning -->
+      <div class="audio-warning">
+        <span class="warning-icon">🔊</span>
+        <p>This experience includes ambient sound and background music.<br>You can mute/unmute at any time using the button in the corner.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Main content wrapper -->
-  <div class="content-wrapper">
-    <header>
-      <h1>Welcome to My Portfolio</h1>
-      <p>Creative Developer & Designer</p>
-    </header>
+  <!-- MAIN PORTFOLIO CONTENT (Hidden until Enter is clicked) -->
+  <div id="mainContent" class="main-content" style="display: none;">
+    <!-- Background wrapper for side panels -->
+    <div class="background-wrapper">
+      <img class="background-image" src="images/lower_qual_back_frut.jfif" alt="Background">
+    </div>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p>about...</p>
-    </section>
+    <!-- Main content wrapper -->
+    <div class="content-wrapper">
+      <header>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Creative Developer & Designer</p>
+      </header>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project">Project 1</div>
-      <div class="project">Project 2</div>
-    </section>
+      <section id="about">
+        <h2>About Me</h2>
+        <p>about...</p>
+      </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email or linkedin</p>
-    </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">Project 1</div>
+        <div class="project">Project 2</div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Email or linkedin</p>
+      </section>
+    </div>
   </div>
 
-  <!-- Entrance sound -->
+  <!-- Audio elements -->
   <audio id="entranceSound" preload="auto">
     <source src="sounds\frutiger-aero-sound.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Looping background music -->
   <audio id="bgMusic" loop preload="auto">
     <source src="music\takeshi abo - LEASE (extended).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Music control button -->
+  <!-- Music control button (hidden until music starts) -->
   <button id="musicControl" class="music-control" style="display: none;">
     🔇 Music Off
   </button>
 
-  <!-- Link to external JavaScript file -->
   <script src="script.js"></script>
-
 </body>
 </html>
