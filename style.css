@@ -2,7 +2,36 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-image: url('images/lower_qual_back_frut.jfif');
+    /* Default for mobile phones */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+
   color: white;
+}
+
+
+/* For tablets and small desktops (768px and up) */
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
+}
+
+/* For large desktops (1200px and up) */
+@media screen and (min-width: 1200px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
+}
+
+/* For ultra-wide screens (1920px and up) */
+@media screen and (min-width: 1920px) {
+  body {
+    background-image: url('images/lower_qual_back_frut.jfif');
+  }
 }
 
 header {
