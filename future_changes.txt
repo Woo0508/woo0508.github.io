@@ -1,0 +1,5 @@
+Fix entrance button
+Add small area for audio options (mute/volume control)
+Fix background border (restore green sidebars) (make thinner)
+Make entrance animation prettier (sunlight transition)
+Actually add the information (boring part)
