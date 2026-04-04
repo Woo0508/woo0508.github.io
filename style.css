@@ -181,65 +181,6 @@ section h2 {
   gap: 40px;
 }
 
-/* Mute button on entrance screen */
-.mute-button {
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.mute-button:hover {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: scale(1.05);
-}
-
-.mute-button:active {
-  transform: scale(0.95);
-}
-
-.mute-button .warning-icon {
-  font-size: 24px;
-  margin: 0;
-  animation: none;
-  transition: all 0.2s ease;
-}
-
-.mute-button.muted .warning-icon {
-  content: "🔇";
-}
-
-/* Update existing audio-warning to accommodate the button */
-.audio-warning {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  border-left: 4px solid #ff4444;
-  padding: 15px 25px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  max-width: 500px;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.audio-warning p {
-  margin: 0;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  flex: 1;
-}
-
 /* Wii-style button */
 .wii-button {
   position: relative;
@@ -295,6 +236,38 @@ section h2 {
   box-shadow: 0 4px 0 #8a8a8a, 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Mute button on entrance screen */
+.mute-button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mute-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.mute-button:active {
+  transform: scale(0.95);
+}
+
+.mute-button .warning-icon {
+  font-size: 24px;
+  margin: 0;
+  animation: none;
+  transition: all 0.2s ease;
+}
+
 /* Audio warning */
 .audio-warning {
   background: rgba(0, 0, 0, 0.75);
@@ -305,13 +278,8 @@ section h2 {
   display: flex;
   align-items: center;
   gap: 15px;
-  max-width: 400px;
+  max-width: 500px;
   animation: fadeInUp 0.8s ease-out;
-}
-
-.warning-icon {
-  font-size: 32px;
-  animation: pulse 1.5s infinite;
 }
 
 .audio-warning p {
@@ -320,6 +288,7 @@ section h2 {
   font-size: 14px;
   line-height: 1.4;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  flex: 1;
 }
 
 @keyframes fadeInUp {
@@ -330,15 +299,6 @@ section h2 {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
   }
 }
 
@@ -377,7 +337,21 @@ section h2 {
     padding: 8px 12px;
     font-size: 12px;
   }
-
   
-
+  .audio-warning {
+    max-width: 90%;
+    padding: 12px 18px;
+  }
+  
+  .audio-warning p {
+    font-size: 12px;
+  }
+  
+  .wii-button {
+    padding: 12px 35px;
+  }
+  
+  .button-text {
+    font-size: 22px;
+  }
 }

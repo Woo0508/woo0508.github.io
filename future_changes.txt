@@ -1,5 +1,6 @@
 Fix entrance button
 Add small area for audio options (mute/volume control)
+    + Also tell them what track is playing with an image of the song
 --- Fix background border (restore green sidebars) (make thinner)
 Make entrance animation prettier (sunlight transition)
 --- Allow the user to mute before entering the site on the entrance screen
