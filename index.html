@@ -10,25 +10,27 @@
 </head>
 <body>
 
-  <!-- ENTRANCE OVERLAY -->
-  <div id="entryOverlay" class="entry-overlay">
-    <div class="entry-background">
-      <img src="images/entrance_picture.jpg" alt="Background" class="entry-bg-image">
-    </div>
-    <div class="entry-content">
-      <!-- Wii-style button -->
-      <button id="enterButton" class="wii-button">
-        <span class="button-text">Enter</span>
-        <span class="button-glow"></span>
-      </button>
-      
-      <!-- Audio warning -->
-      <div class="audio-warning">
+ <!-- ENTRANCE OVERLAY -->
+<div id="entryOverlay" class="entry-overlay">
+  <div class="entry-background">
+    <img src="images/entrance_picture.jpg" alt="Background" class="entry-bg-image">
+  </div>
+  <div class="entry-content">
+    <!-- Wii-style button -->
+    <button id="enterButton" class="wii-button">
+      <span class="button-text">Enter</span>
+      <span class="button-glow"></span>
+    </button>
+    
+    <!-- Audio warning with mute option -->
+    <div class="audio-warning">
+      <button id="entranceMuteButton" class="mute-button">
         <span class="warning-icon">🔊</span>
-        <p>This experience includes ambient sound and background music.<br>You can mute/unmute at any time using the button in the corner.</p>
-      </div>
+      </button>
+      <p>⚠️ This experience includes ambient sound and background music.<br>Click the <strong>speaker icon</strong> to mute before entering. You can also mute/unmute anytime using the button in the corner after entering.</p>
     </div>
   </div>
+</div>
 
   <!-- MAIN PORTFOLIO CONTENT (Hidden until Enter is clicked) -->
   <div id="mainContent" class="main-content" style="display: none;">
@@ -41,12 +43,12 @@
     <div class="content-wrapper">
       <header>
         <h1>Welcome to My Portfolio</h1>
-        <p>Creative Developer & Designer</p>
+        <p>Computer Science Student</p>
       </header>
 
       <section id="about">
         <h2>About Me</h2>
-        <p>about...</p>
+        <p>Hello! I am --- ---, a student at the University of Notre Dame majoring in Computer Science. </p>
       </section>
 
       <section id="projects">
@@ -57,7 +59,7 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>Email or linkedin</p>
+        <p>Email and linkedin</p>
       </section>
     </div>
   </div>

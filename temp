@@ -1,42 +1,268 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-image: url('images/lower_qual_back_frut.jfif');
-    /* Default for mobile phones */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
+/* ==================== */
+/* ENTRANCE OVERLAY STYLES */
+/* ==================== */
 
-  color: rgb(0, 25, 252);
+.entry-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  overflow: hidden;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 
+.entry-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
 
-/* For tablets and small desktops (768px and up) */
-@media screen and (min-width: 768px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
+.entry-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8); /* Slightly dim the background for better button visibility */
+}
+
+.entry-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+}
+
+/* ==================== */
+/* WII-STYLE BUTTON */
+/* ==================== */
+
+.wii-button {
+  position: relative;
+  background: linear-gradient(135deg, #e8e8e8 0%, #cccccc 100%);
+  border: none;
+  border-radius: 60px;
+  padding: 18px 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 0 #8a8a8a, 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.button-text {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-shadow: 0 1px 0 #ffffff;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+/* Hover effects */
+.wii-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 #8a8a8a, 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.wii-button:hover .button-glow {
+  left: 100%;
+}
+
+.wii-button:hover .button-text {
+  color: #2c2c2c;
+  transform: scale(1.02);
+}
+
+/* Active/Click effect */
+.wii-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 4px 0 #8a8a8a, 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== */
+/* AUDIO WARNING */
+/* ==================== */
+
+.audio-warning {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border-left: 4px solid #ff4444;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 400px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.warning-icon {
+  font-size: 32px;
+  animation: pulse 1.5s infinite;
+}
+
+.audio-warning p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* For large desktops (1200px and up) */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* ==================== */
+/* MAIN CONTENT (Initially Hidden) */
+/* ==================== */
+
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.main-content.visible {
+  opacity: 1;
+}
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  color: rgb(0, 25, 252);
+  
+  /* Side panel color */
+  background-color: #B2D7B9;
+}
+
+/* Background wrapper for the image with side panels */
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #B2D7B9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden; /* Prevents scrollbars if image extends */
+}
+
+.background-image {
+  width: auto;
+  height: 100%;
+  object-fit: cover; /* Changed from 'contain' to 'cover' for wider coverage */
+  object-position: center top;
+  min-width: 100%; /* Ensures image covers the width */
+}
+
+/* Default for mobile phones - full width image */
+.background-image {
+  max-width: none; /* Removed max-width limitation */
+  width: 100%; /* Make it fill the wrapper */
+}
+
+/* For tablets and small desktops (768px and up) */
+@media screen and (min-width: 768px) {
+  .background-image {
+    width: 110%; /* 5% wider on each side = 10% total wider */
+    margin-left: -5%; /* Centers the wider image */
+  }
+}
+
+/* For laptops/desktops (1200px and up) */
 @media screen and (min-width: 1200px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
+  .background-image {
+    width: 115%; /* 7.5% wider on each side = 15% total wider */
+    margin-left: -7.5%;
+  }
+}
+
+/* For large desktops (1600px and up) */
+@media screen and (min-width: 1600px) {
+  .background-image {
+    width: 120%; /* 10% wider on each side = 20% total wider */
+    margin-left: -10%;
   }
 }
 
 /* For ultra-wide screens (1920px and up) */
 @media screen and (min-width: 1920px) {
-  body {
-    background-image: url('images/lower_qual_back_frut.jfif');
+  .background-image {
+    width: 125%; /* 12.5% wider on each side = 25% total wider */
+    margin-left: -12.5%;
   }
+}
+
+/* For extremely wide screens (2560px and up) */
+@media screen and (min-width: 2560px) {
+  .background-image {
+    width: 130%; /* 15% wider on each side = 30% total wider */
+    margin-left: -15%;
+  }
+}
+
+/* Content wrapper - keeps content above background */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 header {
   text-align: center;
   padding: 60px 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
 section {
@@ -45,9 +271,89 @@ section {
   margin: auto;
 }
 
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(0, 25, 252, 0.3);
+  display: inline-block;
+}
+
 .project {
-  background: #1a1a1a;
   padding: 15px;
   margin: 10px 0;
   border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.project:hover {
+  transform: translateX(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Music control button styling */
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.music-control:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* Optional: fade-in animation for the button */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.music-control {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+  header {
+    padding: 40px 20px;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  section {
+    padding: 30px 20px;
+  }
+  
+  section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .music-control {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+
+

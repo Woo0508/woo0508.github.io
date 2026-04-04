@@ -1,181 +1,14 @@
-/* ==================== */
-/* ENTRANCE OVERLAY STYLES */
-/* ==================== */
-
-.entry-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  overflow: hidden;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-}
-
-.entry-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.entry-bg-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.8); /* Slightly dim the background for better button visibility */
-}
-
-.entry-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 40px;
-}
-
-/* ==================== */
-/* WII-STYLE BUTTON */
-/* ==================== */
-
-.wii-button {
-  position: relative;
-  background: linear-gradient(135deg, #e8e8e8 0%, #cccccc 100%);
-  border: none;
-  border-radius: 60px;
-  padding: 18px 50px;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 0 #8a8a8a, 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.button-text {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  color: #4a4a4a;
-  text-shadow: 0 1px 0 #ffffff;
-  letter-spacing: 2px;
-  position: relative;
-  z-index: 2;
-  transition: all 0.2s ease;
-}
-
-.button-glow {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-  transition: left 0.5s ease;
-  pointer-events: none;
-}
-
-/* Hover effects */
-.wii-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 0 #8a8a8a, 0 15px 25px rgba(0, 0, 0, 0.2);
-}
-
-.wii-button:hover .button-glow {
-  left: 100%;
-}
-
-.wii-button:hover .button-text {
-  color: #2c2c2c;
-  transform: scale(1.02);
-}
-
-/* Active/Click effect */
-.wii-button:active {
-  transform: translateY(5px);
-  box-shadow: 0 4px 0 #8a8a8a, 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* ==================== */
-/* AUDIO WARNING */
-/* ==================== */
-
-.audio-warning {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  border-left: 4px solid #ff4444;
-  padding: 15px 25px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  max-width: 400px;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.warning-icon {
-  font-size: 32px;
-  animation: pulse 1.5s infinite;
-}
-
-.audio-warning p {
-  margin: 0;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* ==================== */
-/* MAIN CONTENT (Initially Hidden) */
-/* ==================== */
-
-.main-content {
-  opacity: 0;
-  transition: opacity 1s ease-in;
-}
-
-.main-content.visible {
-  opacity: 1;
-}
-
-
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   min-height: 100vh;
   color: rgb(0, 25, 252);
   
-  /* Side panel color */
+  /* Side panel color - visible on both sides */
   background-color: #B2D7B9;
 }
 
-/* Background wrapper for the image with side panels */
+/* Background wrapper for the image with fixed side panels */
 .background-wrapper {
   position: fixed;
   top: 0;
@@ -183,64 +16,41 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-color: #B2D7B9;
+  background-color: #B2D7B9;  /* Side panel color */
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  overflow: hidden; /* Prevents scrollbars if image extends */
 }
 
 .background-image {
-  width: auto;
+  position: absolute;
+  top: 0;
+  left: 125px;  /* 125px from the left edge */
+  width: calc(100% - 250px);  /* Full width minus 125px left + 125px right = 250px total */
   height: 100%;
-  object-fit: cover; /* Changed from 'contain' to 'cover' for wider coverage */
+  object-fit: cover;
   object-position: center top;
-  min-width: 100%; /* Ensures image covers the width */
 }
 
-/* Default for mobile phones - full width image */
-.background-image {
-  max-width: none; /* Removed max-width limitation */
-  width: 100%; /* Make it fill the wrapper */
-}
-
-/* For tablets and small desktops (768px and up) */
-@media screen and (min-width: 768px) {
+/* For tablets and smaller screens - reduce sidebars proportionally */
+@media screen and (max-width: 1200px) {
   .background-image {
-    width: 110%; /* 5% wider on each side = 10% total wider */
-    margin-left: -5%; /* Centers the wider image */
+    left: 60px;
+    width: calc(100% - 120px);
   }
 }
 
-/* For laptops/desktops (1200px and up) */
-@media screen and (min-width: 1200px) {
+@media screen and (max-width: 768px) {
   .background-image {
-    width: 115%; /* 7.5% wider on each side = 15% total wider */
-    margin-left: -7.5%;
+    left: 20px;
+    width: calc(100% - 40px);
   }
 }
 
-/* For large desktops (1600px and up) */
-@media screen and (min-width: 1600px) {
+@media screen and (max-width: 480px) {
   .background-image {
-    width: 120%; /* 10% wider on each side = 20% total wider */
-    margin-left: -10%;
-  }
-}
-
-/* For ultra-wide screens (1920px and up) */
-@media screen and (min-width: 1920px) {
-  .background-image {
-    width: 125%; /* 12.5% wider on each side = 25% total wider */
-    margin-left: -12.5%;
-  }
-}
-
-/* For extremely wide screens (2560px and up) */
-@media screen and (min-width: 2560px) {
-  .background-image {
-    width: 130%; /* 15% wider on each side = 30% total wider */
-    margin-left: -15%;
+    left: 10px;
+    width: calc(100% - 20px);
   }
 }
 
@@ -313,7 +123,7 @@ section h2 {
   transform: scale(1.05);
 }
 
-/* Optional: fade-in animation for the button */
+/* Fade-in animation for the button */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -327,6 +137,220 @@ section h2 {
 
 .music-control {
   animation: fadeIn 0.5s ease-out;
+}
+
+/* ==================== */
+/* ENTRANCE OVERLAY STYLES */
+/* ==================== */
+
+.entry-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  overflow: hidden;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.entry-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.entry-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+.entry-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+}
+
+/* Mute button on entrance screen */
+.mute-button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mute-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.mute-button:active {
+  transform: scale(0.95);
+}
+
+.mute-button .warning-icon {
+  font-size: 24px;
+  margin: 0;
+  animation: none;
+  transition: all 0.2s ease;
+}
+
+.mute-button.muted .warning-icon {
+  content: "🔇";
+}
+
+/* Update existing audio-warning to accommodate the button */
+.audio-warning {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border-left: 4px solid #ff4444;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 500px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.audio-warning p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  flex: 1;
+}
+
+/* Wii-style button */
+.wii-button {
+  position: relative;
+  background: linear-gradient(135deg, #e8e8e8 0%, #cccccc 100%);
+  border: none;
+  border-radius: 60px;
+  padding: 18px 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 0 #8a8a8a, 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.button-text {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-shadow: 0 1px 0 #ffffff;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.wii-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 #8a8a8a, 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.wii-button:hover .button-glow {
+  left: 100%;
+}
+
+.wii-button:hover .button-text {
+  color: #2c2c2c;
+  transform: scale(1.02);
+}
+
+.wii-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 4px 0 #8a8a8a, 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Audio warning */
+.audio-warning {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border-left: 4px solid #ff4444;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 400px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.warning-icon {
+  font-size: 32px;
+  animation: pulse 1.5s infinite;
+}
+
+.audio-warning p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Main Content (Initially Hidden) */
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+  display: none;
+}
+
+.main-content.visible {
+  opacity: 1;
 }
 
 /* Mobile adjustments */
@@ -353,7 +377,7 @@ section h2 {
     padding: 8px 12px;
     font-size: 12px;
   }
+
+  
+
 }
-
-
-
