@@ -1,4 +1,4 @@
-// script.js - Complete audio controls with play/pause, mute, volume, prev/next
+// script.js - Complete audio controls with SVG icons
 
 // Get elements
 const entryOverlay = document.getElementById('entryOverlay');
@@ -9,7 +9,7 @@ const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const entranceMuteButton = document.getElementById('entranceMuteButton');
 
-// New music box elements
+// Music box elements
 const playPauseBtn = document.getElementById('playPauseBtn');
 const muteVolumeBtn = document.getElementById('muteVolumeBtn');
 const volumeSlider = document.getElementById('volumeSlider');
@@ -17,16 +17,22 @@ const prevTrackBtn = document.getElementById('prevTrackBtn');
 const nextTrackBtn = document.getElementById('nextTrackBtn');
 const trackNameSpan = document.querySelector('.track-name');
 
+// Get SVG icons within buttons
+const playIcon = playPauseBtn?.querySelector('.play-icon');
+const pauseIcon = playPauseBtn?.querySelector('.pause-icon');
+const volumeOnIcon = muteVolumeBtn?.querySelector('.volume-on');
+const volumeOffIcon = muteVolumeBtn?.querySelector('.volume-off');
+
 let musicPlaying = false;
 let audioStarted = false;
 let isMuted = false;
 let currentTrackIndex = 0;
 
-// Define your playlist (add your actual file paths)
+// Define your playlist
 const playlist = [
-  { name: "Track 1 - Ambient", src: "music/takeshi abo - LEASE (extended).mp3" },
-  { name: "Track 2 - Calm", src: "music/track2.mp3" },  // Add your second track
-  { name: "Track 3 - Peaceful", src: "music/track3.mp3" }  // Add your third track
+  { name: "Track 1 - LEASE", src: "music/takeshi abo - LEASE (extended).mp3" },
+  { name: "Track 2 - Calm", src: "music/track2.mp3" },
+  { name: "Track 3 - Peaceful", src: "music/track3.mp3" }
 ];
 
 // Function to load a track
@@ -47,7 +53,10 @@ function toggleMute() {
   if (isMuted) {
     entranceSound.muted = false;
     bgMusic.muted = false;
-    if (muteVolumeBtn) muteVolumeBtn.innerHTML = '🔊';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'block';
+      volumeOffIcon.style.display = 'none';
+    }
     entranceMuteButton?.classList.remove('muted');
     const iconSpan = entranceMuteButton?.querySelector('.warning-icon');
     if (iconSpan) iconSpan.textContent = '🔊';
@@ -56,7 +65,10 @@ function toggleMute() {
   } else {
     entranceSound.muted = true;
     bgMusic.muted = true;
-    if (muteVolumeBtn) muteVolumeBtn.innerHTML = '🔇';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'none';
+      volumeOffIcon.style.display = 'block';
+    }
     entranceMuteButton?.classList.add('muted');
     const iconSpan = entranceMuteButton?.querySelector('.warning-icon');
     if (iconSpan) iconSpan.textContent = '🔇';
@@ -84,7 +96,10 @@ function startExperience() {
     if (!isMuted) {
       bgMusic.play().then(() => {
         musicPlaying = true;
-        if (playPauseBtn) playPauseBtn.innerHTML = '⏸️';
+        if (playIcon && pauseIcon) {
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+        }
         musicControl.style.display = 'block';
         musicControl.innerHTML = '🔊 Music On';
         console.log('🎵 Background music started');
@@ -119,12 +134,18 @@ function togglePlayPause() {
   
   if (musicPlaying) {
     bgMusic.pause();
-    playPauseBtn.innerHTML = '▶️';
+    if (playIcon && pauseIcon) {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    }
     musicPlaying = false;
     console.log('Music paused');
   } else {
     bgMusic.play().then(() => {
-      playPauseBtn.innerHTML = '⏸️';
+      if (playIcon && pauseIcon) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
       musicPlaying = true;
       console.log('Music resumed');
     }).catch(error => {
@@ -138,13 +159,19 @@ function toggleMuteBox() {
   if (isMuted) {
     bgMusic.muted = false;
     entranceSound.muted = false;
-    muteVolumeBtn.innerHTML = '🔊';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'block';
+      volumeOffIcon.style.display = 'none';
+    }
     volumeSlider.value = bgMusic.volume * 100;
     isMuted = false;
   } else {
     bgMusic.muted = true;
     entranceSound.muted = true;
-    muteVolumeBtn.innerHTML = '🔇';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'none';
+      volumeOffIcon.style.display = 'block';
+    }
     isMuted = true;
   }
 }
@@ -156,10 +183,16 @@ function setVolume(value) {
   entranceSound.volume = volume;
   
   if (volume === 0) {
-    muteVolumeBtn.innerHTML = '🔇';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'none';
+      volumeOffIcon.style.display = 'block';
+    }
     isMuted = true;
   } else if (isMuted) {
-    muteVolumeBtn.innerHTML = '🔊';
+    if (volumeOnIcon && volumeOffIcon) {
+      volumeOnIcon.style.display = 'block';
+      volumeOffIcon.style.display = 'none';
+    }
     isMuted = false;
   }
 }
@@ -180,19 +213,25 @@ function prevTrack() {
   }
 }
 
-// Legacy toggle music function (for corner button)
+// Legacy toggle music function
 function toggleMusic() {
   if (!audioStarted) return;
   
   if (musicPlaying) {
     bgMusic.pause();
     musicControl.innerHTML = '🔇 Music Off';
-    if (playPauseBtn) playPauseBtn.innerHTML = '▶️';
+    if (playIcon && pauseIcon) {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    }
     musicPlaying = false;
   } else {
     bgMusic.play().then(() => {
       musicControl.innerHTML = '🔊 Music On';
-      if (playPauseBtn) playPauseBtn.innerHTML = '⏸️';
+      if (playIcon && pauseIcon) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }
       musicPlaying = true;
     }).catch(error => {
       console.error('Could not play music:', error);
@@ -218,7 +257,6 @@ document.addEventListener('keydown', function(event) {
   if ((event.key === 'm' || event.key === 'M') && !audioStarted && entranceMuteButton) {
     toggleMute();
   }
-  // Music controls after start
   if (audioStarted) {
     if (event.code === 'Space') {
       event.preventDefault();
@@ -244,7 +282,7 @@ document.addEventListener('keydown', function(event) {
 // Preload audio
 window.addEventListener('load', function() {
   if (entranceSound) entranceSound.load();
-  loadTrack(0);  // Load first track
+  loadTrack(0);
   bgMusic.volume = 0.7;
   volumeSlider.value = 70;
   console.log('🎧 Audio preloaded and ready');

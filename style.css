@@ -358,8 +358,6 @@ section h2 {
 }
 
 
-
-
 /* ==================== */
 /* MUSIC CONTROL BOX */
 /* ==================== */
@@ -368,39 +366,32 @@ section h2 {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: rgb(255, 255, 225);  /* Red:255, Green:255, Blue:225 */
-  border: 2px solid rgb(108, 188, 225);  /* Red:108, Green:188, Blue:225 */
-  border-radius: 16px;  /* Slightly curved edges */
+  background-color: rgb(255, 255, 255);
+  border: 4px solid rgb(108, 188, 225);
+  border-radius: 16px;
   padding: 15px 20px;
-  min-width: 220px;
+  min-width: 260px;
   z-index: 1001;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(0px);
   transition: all 0.3s ease;
-}
-
-.music-box:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  transform: translateY(-2px);
 }
 
 .music-box-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(108, 188, 225, 0.5);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(108, 188, 225, 0.3);
   font-family: Arial, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   color: #333;
 }
 
 .track-name {
-  font-style: italic;
   font-size: 11px;
-  color: #666;
-  max-width: 120px;
+  color: #888;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -409,17 +400,16 @@ section h2 {
 .music-controls {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .music-btn {
   background: #d3d3d3;  /* Light gray */
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 18px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -429,13 +419,17 @@ section h2 {
 }
 
 .music-btn:hover {
-  background: #c0c0c0;  /* Slightly darker on hover */
+  background: #bebebe;  /* Slightly darker on hover */
   transform: scale(1.05);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .music-btn:active {
   transform: scale(0.95);
+}
+
+.btn-icon {
+  display: block;
 }
 
 .volume-control {
@@ -458,13 +452,15 @@ section h2 {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: rgb(108, 188, 225);
+  background: #bebebe;
+  border: 2px solid rgb(108, 188, 225);
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 #volumeSlider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
+  background: #a0a0a0;
 }
 
 /* Mobile adjustment for music box */
@@ -473,21 +469,30 @@ section h2 {
     top: 10px;
     right: 10px;
     padding: 10px 15px;
-    min-width: 180px;
+    min-width: 200px;
   }
   
   .music-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .btn-icon {
+    width: 16px;
+    height: 16px;
   }
   
   .music-box-header {
-    font-size: 10px;
+    font-size: 11px;
+    margin-bottom: 10px;
   }
   
   .track-name {
     font-size: 9px;
-    max-width: 90px;
+    max-width: 100px;
+  }
+  
+  .music-controls {
+    gap: 10px;
   }
 }
