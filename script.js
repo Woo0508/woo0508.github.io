@@ -1,4 +1,4 @@
-// script.js - Entrance overlay with Wii-style button and pre-entry mute
+// script.js - Complete audio controls with play/pause, mute, volume, prev/next
 
 // Get elements
 const entryOverlay = document.getElementById('entryOverlay');
@@ -9,137 +9,243 @@ const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const entranceMuteButton = document.getElementById('entranceMuteButton');
 
+// New music box elements
+const playPauseBtn = document.getElementById('playPauseBtn');
+const muteVolumeBtn = document.getElementById('muteVolumeBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const prevTrackBtn = document.getElementById('prevTrackBtn');
+const nextTrackBtn = document.getElementById('nextTrackBtn');
+const trackNameSpan = document.querySelector('.track-name');
+
 let musicPlaying = false;
 let audioStarted = false;
-let isMuted = false;  // Track mute state before entrance
+let isMuted = false;
+let currentTrackIndex = 0;
 
-// Function to mute/unmute all audio before entering
+// Define your playlist (add your actual file paths)
+const playlist = [
+  { name: "Track 1 - Ambient", src: "music/takeshi abo - LEASE (extended).mp3" },
+  { name: "Track 2 - Calm", src: "music/track2.mp3" },  // Add your second track
+  { name: "Track 3 - Peaceful", src: "music/track3.mp3" }  // Add your third track
+];
+
+// Function to load a track
+function loadTrack(index) {
+  if (index < 0) index = playlist.length - 1;
+  if (index >= playlist.length) index = 0;
+  currentTrackIndex = index;
+  bgMusic.src = playlist[currentTrackIndex].src;
+  trackNameSpan.textContent = playlist[currentTrackIndex].name;
+  
+  if (musicPlaying && audioStarted) {
+    bgMusic.play().catch(e => console.log('Play prevented:', e));
+  }
+}
+
+// Function to toggle mute on entrance screen
 function toggleMute() {
   if (isMuted) {
-    // Unmute
     entranceSound.muted = false;
     bgMusic.muted = false;
-    entranceMuteButton.classList.remove('muted');
-    const iconSpan = entranceMuteButton.querySelector('.warning-icon');
+    if (muteVolumeBtn) muteVolumeBtn.innerHTML = '🔊';
+    entranceMuteButton?.classList.remove('muted');
+    const iconSpan = entranceMuteButton?.querySelector('.warning-icon');
     if (iconSpan) iconSpan.textContent = '🔊';
     isMuted = false;
-    console.log('Audio unmuted before entrance');
+    console.log('Audio unmuted');
   } else {
-    // Mute
     entranceSound.muted = true;
     bgMusic.muted = true;
-    entranceMuteButton.classList.add('muted');
-    const iconSpan = entranceMuteButton.querySelector('.warning-icon');
+    if (muteVolumeBtn) muteVolumeBtn.innerHTML = '🔇';
+    entranceMuteButton?.classList.add('muted');
+    const iconSpan = entranceMuteButton?.querySelector('.warning-icon');
     if (iconSpan) iconSpan.textContent = '🔇';
     isMuted = true;
-    console.log('Audio muted before entrance');
+    console.log('Audio muted');
   }
 }
 
 // Function to handle the entrance and show main content
 function startExperience() {
-    if (audioStarted) return; // Prevent double firing
-    audioStarted = true;
+  if (audioStarted) return;
+  audioStarted = true;
 
-    // Play entrance sound only if not muted
+  if (!isMuted) {
+    entranceSound.play().then(() => {
+      console.log('✨ Entrance sound playing');
+    }).catch(error => {
+      console.error('Entrance sound error:', error);
+    });
+  } else {
+    console.log('Entrance sound skipped (muted)');
+  }
+
+  setTimeout(() => {
     if (!isMuted) {
-        entranceSound.play().then(() => {
-            console.log('✨ Entrance sound playing');
-        }).catch(error => {
-            console.error('Entrance sound error:', error);
-        });
+      bgMusic.play().then(() => {
+        musicPlaying = true;
+        if (playPauseBtn) playPauseBtn.innerHTML = '⏸️';
+        musicControl.style.display = 'block';
+        musicControl.innerHTML = '🔊 Music On';
+        console.log('🎵 Background music started');
+      }).catch(error => {
+        console.error('Music error:', error);
+        musicControl.style.display = 'block';
+        musicControl.innerHTML = '🎵 Click to play music';
+      });
     } else {
-        console.log('Entrance sound skipped (muted)');
+      console.log('Background music skipped (muted)');
+      musicControl.style.display = 'block';
+      musicControl.innerHTML = '🔇 Music Off (Muted)';
     }
+  }, 2000);
 
-    // Schedule background music to start after 2 seconds
-    setTimeout(() => {
-        if (!isMuted) {
-            bgMusic.play().then(() => {
-                musicPlaying = true;
-                musicControl.style.display = 'block';
-                musicControl.innerHTML = '🔊 Music On';
-                console.log('🎵 Background music started');
-            }).catch(error => {
-                console.error('Music error:', error);
-                musicControl.style.display = 'block';
-                musicControl.innerHTML = '🎵 Click to play music';
-            });
-        } else {
-            console.log('Background music skipped (muted)');
-            musicControl.style.display = 'block';
-            musicControl.innerHTML = '🔇 Music Off (Muted)';
-        }
-    }, 2000);
-
-    // Fade out and remove the entrance overlay
-    entryOverlay.style.opacity = '0';
-    
-    // Show the main content with fade-in effect
-    mainContent.style.display = 'block';
-    
-    // Force a reflow to ensure the transition works
-    void mainContent.offsetWidth;
-    mainContent.classList.add('visible');
-    
-    // Remove the overlay from the DOM after transition
-    setTimeout(() => {
-        entryOverlay.style.visibility = 'hidden';
-        if (entryOverlay.parentNode) {
-            entryOverlay.remove();
-        }
-    }, 1000);
+  entryOverlay.style.opacity = '0';
+  mainContent.style.display = 'block';
+  void mainContent.offsetWidth;
+  mainContent.classList.add('visible');
+  
+  setTimeout(() => {
+    entryOverlay.style.visibility = 'hidden';
+    if (entryOverlay.parentNode) {
+      entryOverlay.remove();
+    }
+  }, 1000);
 }
 
-// Function to toggle music on/off after entering
+// Play/Pause function
+function togglePlayPause() {
+  if (!audioStarted) return;
+  
+  if (musicPlaying) {
+    bgMusic.pause();
+    playPauseBtn.innerHTML = '▶️';
+    musicPlaying = false;
+    console.log('Music paused');
+  } else {
+    bgMusic.play().then(() => {
+      playPauseBtn.innerHTML = '⏸️';
+      musicPlaying = true;
+      console.log('Music resumed');
+    }).catch(error => {
+      console.error('Could not play:', error);
+    });
+  }
+}
+
+// Mute/Unmute function for music box
+function toggleMuteBox() {
+  if (isMuted) {
+    bgMusic.muted = false;
+    entranceSound.muted = false;
+    muteVolumeBtn.innerHTML = '🔊';
+    volumeSlider.value = bgMusic.volume * 100;
+    isMuted = false;
+  } else {
+    bgMusic.muted = true;
+    entranceSound.muted = true;
+    muteVolumeBtn.innerHTML = '🔇';
+    isMuted = true;
+  }
+}
+
+// Volume control
+function setVolume(value) {
+  const volume = value / 100;
+  bgMusic.volume = volume;
+  entranceSound.volume = volume;
+  
+  if (volume === 0) {
+    muteVolumeBtn.innerHTML = '🔇';
+    isMuted = true;
+  } else if (isMuted) {
+    muteVolumeBtn.innerHTML = '🔊';
+    isMuted = false;
+  }
+}
+
+// Next track
+function nextTrack() {
+  loadTrack(currentTrackIndex + 1);
+  if (musicPlaying && audioStarted) {
+    bgMusic.play().catch(e => console.log('Play error:', e));
+  }
+}
+
+// Previous track
+function prevTrack() {
+  loadTrack(currentTrackIndex - 1);
+  if (musicPlaying && audioStarted) {
+    bgMusic.play().catch(e => console.log('Play error:', e));
+  }
+}
+
+// Legacy toggle music function (for corner button)
 function toggleMusic() {
-    if (musicPlaying) {
-        bgMusic.pause();
-        musicControl.innerHTML = '🔇 Music Off';
-        musicPlaying = false;
-        console.log('Music paused by user');
-    } else {
-        bgMusic.play().then(() => {
-            musicControl.innerHTML = '🔊 Music On';
-            musicPlaying = true;
-            console.log('Music resumed by user');
-        }).catch(error => {
-            console.error('Could not play music:', error);
-        });
-    }
+  if (!audioStarted) return;
+  
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicControl.innerHTML = '🔇 Music Off';
+    if (playPauseBtn) playPauseBtn.innerHTML = '▶️';
+    musicPlaying = false;
+  } else {
+    bgMusic.play().then(() => {
+      musicControl.innerHTML = '🔊 Music On';
+      if (playPauseBtn) playPauseBtn.innerHTML = '⏸️';
+      musicPlaying = true;
+    }).catch(error => {
+      console.error('Could not play music:', error);
+    });
+  }
 }
 
-// Add event listeners
-if (enterButton) {
-    enterButton.addEventListener('click', startExperience);
-}
+// Event Listeners
+if (enterButton) enterButton.addEventListener('click', startExperience);
+if (musicControl) musicControl.onclick = toggleMusic;
+if (entranceMuteButton) entranceMuteButton.addEventListener('click', toggleMute);
+if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
+if (muteVolumeBtn) muteVolumeBtn.addEventListener('click', toggleMuteBox);
+if (volumeSlider) volumeSlider.addEventListener('input', (e) => setVolume(e.target.value));
+if (nextTrackBtn) nextTrackBtn.addEventListener('click', nextTrack);
+if (prevTrackBtn) prevTrackBtn.addEventListener('click', prevTrack);
 
-if (musicControl) {
-    musicControl.onclick = toggleMusic;
-}
-
-// Add mute button listener
-if (entranceMuteButton) {
-    entranceMuteButton.addEventListener('click', toggleMute);
-}
-
-// Optional: Add keyboard support (press Enter key to start)
+// Keyboard shortcuts
 document.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter' && !audioStarted && entryOverlay && entryOverlay.style.opacity !== '0') {
-        startExperience();
+  if (event.key === 'Enter' && !audioStarted && entryOverlay && entryOverlay.style.opacity !== '0') {
+    startExperience();
+  }
+  if ((event.key === 'm' || event.key === 'M') && !audioStarted && entranceMuteButton) {
+    toggleMute();
+  }
+  // Music controls after start
+  if (audioStarted) {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      togglePlayPause();
     }
+    if (event.key === 'ArrowLeft') prevTrack();
+    if (event.key === 'ArrowRight') nextTrack();
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      let newVol = Math.min(100, (bgMusic.volume * 100) + 10);
+      setVolume(newVol);
+      volumeSlider.value = newVol;
+    }
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      let newVol = Math.max(0, (bgMusic.volume * 100) - 10);
+      setVolume(newVol);
+      volumeSlider.value = newVol;
+    }
+  }
 });
 
-// Optional: Add 'M' key to mute/unmute before entering
-document.addEventListener('keydown', function(event) {
-    if ((event.key === 'm' || event.key === 'M') && !audioStarted && entranceMuteButton) {
-        toggleMute();
-    }
-});
-
-// Preload audio to ensure faster playback when clicked
+// Preload audio
 window.addEventListener('load', function() {
-    if (entranceSound) entranceSound.load();
-    if (bgMusic) bgMusic.load();
-    console.log('🎧 Audio preloaded and ready');
+  if (entranceSound) entranceSound.load();
+  loadTrack(0);  // Load first track
+  bgMusic.volume = 0.7;
+  volumeSlider.value = 70;
+  console.log('🎧 Audio preloaded and ready');
 });

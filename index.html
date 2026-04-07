@@ -64,6 +64,31 @@
     </div>
   </div>
 
+    <!-- Music Control Box -->
+  <div class="music-box">
+    <div class="music-box-header">
+      <span>🎵 Now Playing</span>
+      <span class="track-name">Background Ambient</span>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="prevTrackBtn" title="Previous Track">
+        ⏮️
+      </button>
+      <button class="music-btn" id="playPauseBtn" title="Play/Pause">
+        ⏸️
+      </button>
+      <button class="music-btn" id="nextTrackBtn" title="Next Track">
+        ⏭️
+      </button>
+      <button class="music-btn" id="muteVolumeBtn" title="Mute/Unmute">
+        🔊
+      </button>
+    </div>
+    <div class="volume-control">
+      <input type="range" id="volumeSlider" min="0" max="100" value="70" title="Volume">
+    </div>
+  </div>
+
   <!-- Audio elements -->
   <audio id="entranceSound" preload="auto">
     <source src="sounds\frutiger-aero-sound.mp3" type="audio/mpeg">
