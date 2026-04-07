@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <!-- favicon -->
-  <link rel="icon" type="image/png" href="images\Frutiger-Aero-Minimalist-Typographic-Approach-PNG-thumb_birefnet.png">
+  <!-- favicon - fixed forward slashes -->
+  <link rel="icon" type="image/png" href="images/Frutiger-Aero-Minimalist-Typographic-Approach-PNG-thumb_birefnet.png">
 </head>
 <body>
 
- <!-- ENTRANCE OVERLAY -->
+<!-- ENTRANCE OVERLAY -->
 <div id="entryOverlay" class="entry-overlay">
   <div class="entry-background">
     <img src="images/entrance_picture.jpg" alt="Background" class="entry-bg-image">
@@ -32,37 +32,37 @@
   </div>
 </div>
 
-  <!-- MAIN PORTFOLIO CONTENT (Hidden until Enter is clicked) -->
-  <div id="mainContent" class="main-content" style="display: none;">
-    <!-- Background wrapper for side panels -->
-    <div class="background-wrapper">
-      <img class="background-image" src="images/lower_qual_back_frut.jfif" alt="Background">
-    </div>
-
-    <!-- Main content wrapper -->
-    <div class="content-wrapper">
-      <header>
-        <h1>Welcome to My Portfolio</h1>
-        <p>Computer Science Student</p>
-      </header>
-
-      <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I am --- ---, a student at the University of Notre Dame majoring in Computer Science. </p>
-      </section>
-
-      <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">Project 1</div>
-        <div class="project">Project 2</div>
-      </section>
-
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Email and linkedin</p>
-      </section>
-    </div>
+<!-- MAIN PORTFOLIO CONTENT (Hidden until Enter is clicked) -->
+<div id="mainContent" class="main-content" style="display: none;">
+  <!-- Background wrapper for side panels -->
+  <div class="background-wrapper">
+    <img class="background-image" src="images/lower_qual_back_frut.jfif" alt="Background">
   </div>
+
+  <!-- Main content wrapper -->
+  <div class="content-wrapper">
+    <header>
+      <h1>Welcome to My Portfolio</h1>
+      <p>Computer Science Student</p>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Hello! I am --- ---, a student at the University of Notre Dame majoring in Computer Science.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project">Project 1</div>
+      <div class="project">Project 2</div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email and linkedin</p>
+    </section>
+  </div>
+</div>
 
 <!-- Music Control Box -->
 <div class="music-box">
@@ -102,3 +102,23 @@
     <input type="range" id="volumeSlider" min="0" max="100" value="70" title="Volume">
   </div>
 </div>
+
+<!-- Audio elements (CRITICAL - these were missing!) -->
+<audio id="entranceSound" preload="auto">
+  <source src="sounds/entrance-sound.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="music/takeshi abo - LEASE (extended).mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Music control button (hidden until music starts) -->
+<button id="musicControl" class="music-control" style="display: none;">
+  🔇 Music Off
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>

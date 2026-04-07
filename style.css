@@ -101,7 +101,7 @@ section h2 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Music control button styling */
+/* Music control button styling (corner button) */
 .music-control {
   position: fixed;
   bottom: 20px;
@@ -357,7 +357,6 @@ section h2 {
   }
 }
 
-
 /* ==================== */
 /* MUSIC CONTROL BOX */
 /* ==================== */
@@ -405,7 +404,7 @@ section h2 {
 }
 
 .music-btn {
-  background: #d3d3d3;  /* Light gray */
+  background: #d3d3d3;
   border: none;
   border-radius: 50%;
   width: 44px;
@@ -419,7 +418,7 @@ section h2 {
 }
 
 .music-btn:hover {
-  background: #bebebe;  /* Slightly darker on hover */
+  background: #bebebe;
   transform: scale(1.05);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }

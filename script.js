@@ -30,9 +30,7 @@ let currentTrackIndex = 0;
 
 // Define your playlist
 const playlist = [
-  { name: "Track 1 - LEASE", src: "music/takeshi abo - LEASE (extended).mp3" },
-  { name: "Track 2 - Calm", src: "music/track2.mp3" },
-  { name: "Track 3 - Peaceful", src: "music/track3.mp3" }
+  { name: "Track 1 - LEASE", src: "music/takeshi abo - LEASE (extended).mp3" }
 ];
 
 // Function to load a track
@@ -79,6 +77,7 @@ function toggleMute() {
 
 // Function to handle the entrance and show main content
 function startExperience() {
+  console.log('Start experience called');
   if (audioStarted) return;
   audioStarted = true;
 
@@ -240,7 +239,10 @@ function toggleMusic() {
 }
 
 // Event Listeners
-if (enterButton) enterButton.addEventListener('click', startExperience);
+if (enterButton) {
+  enterButton.addEventListener('click', startExperience);
+  console.log('Enter button listener attached');
+}
 if (musicControl) musicControl.onclick = toggleMusic;
 if (entranceMuteButton) entranceMuteButton.addEventListener('click', toggleMute);
 if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
@@ -284,6 +286,6 @@ window.addEventListener('load', function() {
   if (entranceSound) entranceSound.load();
   loadTrack(0);
   bgMusic.volume = 0.7;
-  volumeSlider.value = 70;
+  if (volumeSlider) volumeSlider.value = 70;
   console.log('🎧 Audio preloaded and ready');
 });
